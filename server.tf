@@ -13,6 +13,7 @@ region = "us-east-1"
 resource "aws_instance" "myawsserver" {
   ami = "ami-037774efca2da0726"
   instance_type = "t2.micro"
+  vpc_security_group_ids= [aws_security_group.var_demo.id]
   key_name = "hema-key"
 
   tags = {
