@@ -10,11 +10,11 @@ terraform {
 provider "aws" {
 region = "us-east-1"
 }
-resource "aws_instance" "myawsserver" {
+resource "aws_instance" "myawsserver_1" {
   ami = "ami-0ebfd941bbafe70c6"
   instance_type = "t2.micro"
   vpc_security_group_ids= [aws_security_group.var_demo.id]
-  key_name = "hema-key"
+  key_name = "hema-import"
 
   tags = {
     Name = "hema-DevOps-batch-server"
