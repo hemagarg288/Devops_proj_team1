@@ -1,5 +1,5 @@
 resource "aws_security_group" "var_demo" {
-  name        = "hema-SG"
+  name        = "Team1-SG"
   vpc_id      = "vpc-00dae5f3df962676d"
 
   ingress {
