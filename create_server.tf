@@ -36,12 +36,12 @@ resource "aws_key_pair" "k8s_key" {
 # Input the existing VPC ID (replace with the actual VPC ID)
 variable "existing_vpc_id" {
   description = "ID of the existing VPC"
-  default     = "vpc-080cf6872b07efacf"
+  default     = "vpc-00dae5f3df962676d"
 }
 
 resource "aws_subnet" "k8s_subnet" {
   vpc_id     = var.existing_vpc_id
-  cidr_block = "172.31.50.0/25"
+  cidr_block = "172.31.0.0/16"
   map_public_ip_on_launch = true  # Enable Auto-Assign Public IP
 
   tags = {
@@ -50,7 +50,7 @@ resource "aws_subnet" "k8s_subnet" {
 }
 
 resource "aws_security_group" "k8s_sg" {
-  name        = "durga_ssh"
+  name        = "team1_ssh"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.existing_vpc_id 
 
@@ -98,7 +98,7 @@ resource "aws_security_group" "k8s_sg" {
 } 
 
 resource "aws_instance" "k8s_master" {
-  ami           = "ami-085f9c64a9b75eed5"  # Change to your preferred AMI (e.g., Ubuntu)
+  ami           = "ami-0866a3c8686eaeeba"  # Change to your preferred AMI (e.g., Ubuntu)
   instance_type = "t2.medium"
   subnet_id     = aws_subnet.k8s_subnet.id
   security_groups = [aws_security_group.k8s_sg.id]
@@ -112,15 +112,15 @@ resource "aws_instance" "k8s_master" {
   }
 
   tags = {
-    Name = "demo-k8s-master"
+    Name = "team1-k8s-master"
     env = "Production"
-    owner = "team2"
+    owner = "team1"
   }
 }
 
 resource "aws_instance" "k8s_worker" {
   count         = 2
-  ami           = "ami-085f9c64a9b75eed5"  # Change to your preferred AMI
+  ami           = "ami-0866a3c8686eaeeba"  # Change to your preferred AMI
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.k8s_subnet.id
   security_groups = [aws_security_group.k8s_sg.id]
@@ -129,9 +129,9 @@ resource "aws_instance" "k8s_worker" {
   key_name      = aws_key_pair.k8s_key.key_name
 
   tags = {
-    Name = "demo-k8s-worker-${count.index}"
+    Name = "team1-k8s-worker-${count.index}"
     env = "Production"
-    owner = "team2"
+    owner = "team1"
   }
 }
 
