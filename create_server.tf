@@ -45,12 +45,12 @@ resource "aws_subnet" "k8s_subnet" {
   map_public_ip_on_launch = true  # Enable Auto-Assign Public IP
 
   tags = {
-    Name = "demo-k8s-subnet"
+    Name = "team1-k8s-subnet"
   }
 }
 
 resource "aws_security_group" "k8s_sg" {
-  name        = "team1_ssh"
+  name        = "team1_sg_ssh"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.existing_vpc_id 
 
@@ -93,7 +93,7 @@ resource "aws_security_group" "k8s_sg" {
 # Add more ingress rules as necessary for your setup
 
   tags = {
-    Name = "demo-k8s-sg"
+    Name = "team1-k8s-sg"
   }
 } 
 
